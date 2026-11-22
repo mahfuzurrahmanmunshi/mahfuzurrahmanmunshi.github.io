@@ -1,0 +1,25 @@
+name: Replace index.html with updated site
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replace-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace index.html with personal-website.html
+        run: |
+          test -f personal-website.html
+          rm -f index.html
+          mv personal-website.html index.html
+      - name: Commit and push
+        run: |
+          git config user.name "mahfuzurrahmanmunshi"
+          git config user.email "mahfuz.bd.work@gmail.com"
+          git add -A
+          git commit -m "Replace index.html with updated site"
+          git push
